@@ -1,4 +1,4 @@
-require_relative 'robot'
+require_relative 'game'
 
 puts %{Challenge Toy Robot Simulator
 Valid commands: 'PLACE X,Y,EAST/WEST/NORTH/SOUTH', MOVE, LEFT, RIGHT and REPORT (case insensitive)"
@@ -6,20 +6,18 @@ Type exit or ctrl+c to quit the game.
 Enter a command:}
 
 cmd = gets.chomp
-
-robot = Robot.new
+game = Game.new
 
 while cmd
   cmd = cmd.downcase.strip
-  
   exit if cmd == 'exit'
 
-  if cmd == "report"
-    puts robot.report
+  if cmd == 'report'
+    puts game.generate_report
     exit
   end
-  
-  cmd.include?("place") ? robot.position=(cmd) : robot.roam(cmd)
+
+  game.execute(cmd)
   
   puts "Enter next command:"
   cmd = gets.chomp 
