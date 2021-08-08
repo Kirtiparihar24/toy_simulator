@@ -5,7 +5,7 @@ class Game
   attr_accessor :robot
 
   def initialize
-    @robot = Robot.new
+    @robot = Robot.new(5)
   end
 
   def execute(cmd)

@@ -1,7 +1,11 @@
 class Robot
   SEQUENCE = %w[west north east south]
 
-  attr_accessor :position
+  attr_accessor :position, :max_unit
+
+  def initialize(max_unit)
+    @max_unit = max_unit
+  end
 
   def position=(cmd)
     coordinates_arr = cmd.gsub(/place/, "").split(",").map(&:strip)
@@ -23,9 +27,9 @@ class Robot
 
     if cmd == 'move'
       if @position[:direction] == 'north' || @position[:direction] == 'south'
-        @position[:y] = @position[:y] + 1
+        @position[:y] = @position[:y] + 1 if (@position[:y] + 1 <= max_unit)
       else
-        @position[:x] = @position[:x] + 1
+        @position[:x] = @position[:x] + 1 if (@position[:x] + 1 <= max_unit)
       end
     end
   end
